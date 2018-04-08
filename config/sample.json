@@ -1,0 +1,1 @@
+{ "domain": "www.example.com", "mongodb": { "host": "localhost", "port": 27017}, "mysql": "server=localhost;userid=myms_user;password=kjbgo4eFSzcHYyGf;persistsecurityinfo=True;port=32786;database=weatherappdb"}

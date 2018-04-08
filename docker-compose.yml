@@ -1,0 +1,42 @@
+version: '2.1'
+
+services:
+  db:
+     image: mysql:5.7
+     volumes:       
+       - "./data/db/mysql:/var/lib/mysql"
+     restart: always
+     container_name: vault_db
+     ports:
+      - "3306:3306"
+     environment:
+       MYSQL_ROOT_PASSWORD: vaultysalty
+       MYSQL_DATABASE: vault
+       MYSQL_USER: vault
+       MYSQL_PASSWORD: vault
+     healthcheck:
+      test: ["CMD", "mysql" ,"-h", "127.0.0.1", "-P", "3306", "-u", "vault", "-pvault", "-e", "SELECT 1", "vault"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+  vault:
+      image: vault:0.9.6
+      container_name: vaultserver
+      depends_on: 
+        db:
+          condition: service_healthy
+      links:
+        - "db:db"
+      hostname: "vault"
+      restart: unless-stopped
+      environment:
+        VAULT_ADDR: http://127.0.0.1:8200
+      volumes:
+       - ./config:/config
+       - ./policies:/policies
+       - ./log:/vault/log
+      ports:
+        - "8200:8200"
+      entrypoint:
+        vault server -config=/config/config.hcl
+    
