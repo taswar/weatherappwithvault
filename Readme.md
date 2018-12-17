@@ -1,3 +1,4 @@
 Using Vault with Node.JS
-More details at http://taswar.zeytinsoft.com/using-hashicorp-vault-for-nodejs-application-to-store-secrets/
+Blog Post for more details
+http://taswar.zeytinsoft.com/using-hashicorp-vault-for-nodejs-application-to-store-secrets/
 
